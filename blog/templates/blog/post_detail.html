@@ -1,0 +1,167 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="post-detail">
+    <div class="post-header">
+        <h1>{{ post.title }}</h1>
+        <div class="post-meta-info">
+            <span class="post-author">
+                <i class="fas fa-user"></i>
+                {{ post.author.username }}
+            </span>
+            <span class="post-date">
+                <i class="fas fa-calendar-alt"></i>
+                {{ post.created_at|date:"Y/m/d - H:i" }}
+            </span>
+            <span class="post-likes">
+                <i class="fas fa-heart"></i>
+                {{ post.total_likes }}
+            </span>
+            {% if post.updated_at != post.created_at %}
+            <span class="post-updated">
+                <i class="fas fa-edit"></i>
+                ویرایش شده در {{ post.updated_at|date:"Y/m/d - H:i" }}
+            </span>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% if post.image %}
+    <div class="post-image">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+    </div>
+    {% endif %}
+    
+    <div class="post-content">
+        {{ post.content|linebreaks }}
+    </div>
+    
+    <div class="post-footer">
+        <div class="post-actions">
+            {% if user.is_authenticated %}
+            <button class="like-btn {% if is_liked %}liked{% endif %}"
+                    data-post-id="{{ post.id }}"
+                    data-liked="{% if is_liked %}true{% else %}false{% endif %}">
+                <i class="fas fa-heart"></i>
+                <span class="like-count">{{ post.total_likes }}</span>
+            </button>
+            {% endif %}
+            
+            <a href="{% url 'home' %}" class="back-btn">
+                <i class="fas fa-arrow-right"></i>
+                بازگشت به صفحه اصلی
+            </a>
+        </div>
+        
+        {% if user.is_authenticated and user == post.author %}
+        <div class="author-actions">
+            <a href="{% url 'edit_post' post.id %}" class="btn-edit">
+                <i class="fas fa-edit"></i>
+                ویرایش
+            </a>
+            <a href="{% url 'delete_post' post.id %}" class="btn-delete">
+                <i class="fas fa-trash"></i>
+                حذف
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="comments-section">
+    <h3>
+        <i class="fas fa-comments"></i>
+        نظرات ({{ comments.count }})
+    </h3>
+    
+    {% for comment in comments %}
+    <div class="comment">
+        <div class="comment-header">
+            <span class="comment-author">
+                <i class="fas fa-user-circle"></i>
+                {{ comment.author.username }}
+            </span>
+            <span class="comment-date">
+                <i class="fas fa-clock"></i>
+                {{ comment.created_at|date:"Y/m/d - H:i" }}
+            </span>
+        </div>
+        <div class="comment-text">
+            {{ comment.text|linebreaks }}
+        </div>
+    </div>
+    {% empty %}
+    <div class="no-comments">
+        <i class="fas fa-comment-slash"></i>
+        <p>هنوز نظری ثبت نشده است.</p>
+    </div>
+    {% endfor %}
+    
+    {% if user.is_authenticated %}
+    <div class="add-comment">
+        <h4>
+            <i class="fas fa-plus-circle"></i>
+            ثبت نظر جدید
+        </h4>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.text }}
+            </div>
+            <button type="submit" class="btn-comment">
+                <i class="fas fa-paper-plane"></i>
+                ارسال نظر
+            </button>
+        </form>
+    </div>
+    {% else %}
+    <div class="login-required">
+        <i class="fas fa-lock"></i>
+        <p>برای ثبت نظر باید <a href="{% url 'login' %}">وارد شوید</a>.</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const likeButtons = document.querySelectorAll('.like-btn');
+    
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const postId = this.dataset.postId;
+            const isLiked = this.dataset.liked === 'true';
+            
+            fetch(`/post/${postId}/like/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update button state
+                this.dataset.liked = data.liked.toString();
+                this.classList.toggle('liked', data.liked);
+                
+                // Update like count
+                const likeCount = this.querySelector('.like-count');
+                likeCount.textContent = data.total_likes;
+                
+                // Update post-likes in post-meta-info
+                const postLikes = document.querySelector('.post-meta-info .post-likes');
+                if (postLikes) {
+                    postLikes.innerHTML = `<i class=\"fas fa-heart\"></i> ${data.total_likes}`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+});
+</script>
+{% endblock %}

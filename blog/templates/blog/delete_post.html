@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h1 class="page-title">
+        <i class="fas fa-trash-alt"></i>
+        حذف پست
+    </h1>
+    
+    <div class="delete-confirmation">
+        <div class="warning-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>آیا مطمئن هستید؟</h3>
+            <p>این عملیات غیرقابل بازگشت است. پست <strong>"{{ post.title }}"</strong> برای همیشه حذف خواهد شد.</p>
+        </div>
+        
+        <form method="POST" class="delete-form">
+            {% csrf_token %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    بله، حذف شود
+                </button>
+                <a href="{% url 'home' %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i>
+                    انصراف
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

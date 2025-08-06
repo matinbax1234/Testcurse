@@ -1,0 +1,196 @@
+/* Custom Admin Panel Style */
+
+body, html {
+    font-family: 'Poppins', 'Vazirmatn', Tahoma, Arial, sans-serif !important;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+    color: #fff !important;
+}
+
+#header, .module caption, .breadcrumbs, .user-tools, .nav-global, .nav-sidebar, .nav-main, .nav-footer, .nav-breadcrumbs, .nav-sidebar, .nav-global, .nav-footer, .nav-breadcrumbs, .nav-sidebar {
+    background: none !important;
+    color: inherit !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#header, #branding, .admin-header {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 2rem 0 1rem 0 !important;
+    text-align: center;
+}
+
+#branding h1, .admin-header h1, #site-name {
+    font-size: 2.2rem !important;
+    font-weight: 700;
+    color: #fff !important;
+    margin: 0;
+}
+
+.admin-header i {
+    display: none !important;
+}
+
+#user-tools, .user-tools {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    background: none !important;
+    color: #fff !important;
+}
+
+.admin-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.admin-nav .btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(102,126,234,0.1);
+}
+
+.admin-nav .btn:hover {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.admin-nav .btn-danger {
+    background: #f56565 !important;
+}
+
+.admin-nav .btn-danger:hover {
+    background: #e53e3e !important;
+}
+
+#content, .content, .main, .container {
+    background: rgba(255,255,255,0.03) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12) !important;
+    padding: 2rem !important;
+    margin-top: 2rem !important;
+}
+
+.module, .module table, .module caption, .module th, .module td {
+    background: none !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+.module th, .module td {
+    border-bottom: 1px solid #2d3748 !important;
+}
+
+tr, th, td {
+    background: none !important;
+    color: #fff !important;
+}
+
+tr:nth-child(even) {
+    background: rgba(102,126,234,0.07) !important;
+}
+
+tr:hover {
+    background: rgba(102,126,234,0.15) !important;
+}
+
+input, select, textarea, .vTextField, .vLargeTextField, .vDateField, .vTimeField, .vIntegerField {
+    background: rgba(255,255,255,0.08) !important;
+    color: #fff !important;
+    border: 1px solid #667eea !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    border-color: #f093fb !important;
+    box-shadow: 0 0 0 2px #f093fb44 !important;
+}
+
+button, input[type="submit"], .button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.7rem 1.5rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s !important;
+    box-shadow: 0 2px 8px rgba(102,126,234,0.1) !important;
+    cursor: pointer !important;
+}
+
+button:hover, input[type="submit"]:hover, .button:hover {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+    color: #fff !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Only hide admin logo and footer, not #site-name or .login-logo globally */
+.footer, #footer, .copyright {
+    display: none !important;
+}
+
+/* Restore visibility for login page elements */
+#site-name, .login-logo, .login-logo img, .login-logo a, .login-logo span, .login-logo svg {
+    display: block !important;
+}
+
+/* Make sure the login form is centered and styled */
+html body.login {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+}
+
+html body.login > div, html body.login > div > div, html body.login .login, html body.login .login-form {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+html body.login input, html body.login button, html body.login label {
+    color: #fff !important;
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid #667eea !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+html body.login button, html body.login input[type="submit"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.7rem 1.5rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s !important;
+    box-shadow: 0 2px 8px rgba(102,126,234,0.1) !important;
+    cursor: pointer !important;
+}
+
+/* Hide all Django admin blue, gray, and default colors */
+:root {
+    --primary: #667eea !important;
+    --secondary: #764ba2 !important;
+    --accent: #f093fb !important;
+    --danger: #f56565 !important;
+    --success: #48bb78 !important;
+    --info: #3498db !important;
+    --bg: #1a1a2e !important;
+    --bg2: #16213e !important;
+    --text: #fff !important;
+    --text-muted: #b8c5d6 !important;
+} 
